@@ -1,1 +1,16 @@
-This is a Deep Learning Network for Cancer Detection
+This is a deep learning neural network that can detect cancer cells in an image. I came up with this network after doing extensive research in the field of apllying machine learning for cancer detection. 
+
+I compiled a list of 17 research papers (all of which had been published in the last few years in journals such as IEEE, IRJET, nature.com, etc.) that had tried to use neural networks for this task. Based on the research, I created a table with information on 22 features of each of the above networks. Some of the features included, the size and type of dataset used, the depth of the network, the number and size of kernels used, the type of pooling used, etc. I researched the challenges that arise when applying computer vision to healthcare. For example, the lack of publicly available data, the large difference between medical datasets and standard datasets such as ImageNet (making it hard to use pre-trained networks such as AlexNet, Inception, etc), and the minute visible differences between cancerous and non-cancerous cells. 
+
+With these problems in mind, I then analyzed the data from the table I had created and tried to understand why the research papers had used those particular values of the features when making their network. I then came up with a deep learning network with features that work best specifically for healthcare images in terms of both accuracy and efficiency. 
+
+The Network
+
+The network I created is 12 layers deep; it consists of 6 convolutional Relu layers, 3 max pooling layers, 2 fully connected Relu layers, a dropout layer and a fully connected sigmoid classifier. The max pooling layers are positioned between two consecutive convolutional layers. One advantage of using this combination is that it allows more complex features to be learned, which is important specifically for medical images. One disadvantage of having more convolutional layers is that it requires more memory requirement. The filter sizes for the convolutional layers start with 5x5 and then reduce to 3x3. The stride of the first convolutional layer is 2, and it changes to 1 for the rest of the layers. An advantage of starting with larger filters with a larger stride is that it reduces the number of parameters. The number of filters for the corresponding layers are 32, 32, 64, 64, 128, 128. This way as the size of the image reduces (due to pooling) the no. of the filters increases so that the more detailed features can be learned. I decided to add a dropout layer before the final classifier layer to reduce overfitting.
+
+Having done all of this, I started building the network on Keras, using Theano as a backend. I chose Keras because of its high level of abstraction, making it easy to create and run neural networks, while also providing enough flexibility to create my network. As I mentioned earlier, one of the main problems in this field is the availability of reliable data. I observed that almost all the research papers augmented their dataset and it greatly improved their results. So, I augmented the data to about 10,000 images using the ImageDataGenerator() function in Keras. I flipped the images horizontally and vertically in a random manner, rotated them left and right by up to 45 degrees, and zoomed in and out by up to 20%. 
+
+
+
+
+
